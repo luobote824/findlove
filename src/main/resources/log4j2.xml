@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<configuration status="DEBUG ">
+
+    <Properties>
+        <property name="logging.path" value="D:/Log/MyLogs" />
+    </Properties>
+
+    <appenders>
+        <!--Console:日志输出到控制台标准输出 -->
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] %-5level %logger{36} - %msg%n"/>
+        </console>
+        <!--RollingFile:日志输出到文件,下面的文件都使用相对路径 -->
+        <!--fileName:当前日志输出的文件名称 -->
+        <!--filePattern:备份日志文件名称，备份目录为logs下面以年月命名的目录，备份时使用log格式压缩 -->
+        <RollingFile name="RollingFileInfo" fileName="${logging.path}/info.log"
+                     filePattern="${logging.path}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss}] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="RollingFileWarn" fileName="${logging.path}/warn.log"
+                     filePattern="${logging.path}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss}] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="RollingFileError" fileName="${logging.path}/error.log"
+                     filePattern="${logging.path}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="[%d{HH:mm:ss}] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+        </RollingFile>
+
+
+        <RollingFile name="RollingFileDebug" fileName="${logging.path}/debug.log"
+                     filePattern="${logging.path}/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
+        <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+        <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+        <PatternLayout pattern="[xxx] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] [%p] %c{1}:%L - %m%n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="50 MB"/>
+        </Policies>
+        <DefaultRolloverStrategy />
+        </RollingFile>
+
+
+    </appenders>
+
+    <loggers>
+        <!--<logger name="org.springframework" level="INFO"/>-->
+        <!--<logger name="org.mybatis" level="INFO"/>-->
+        <!--<logger name="org.apache.shiro" level="INFO"/>-->
+        <logger name="com.hpe.findlover" level="warn"/>
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileDebug"/>
+        </root>
+    </loggers>
+
+</configuration>

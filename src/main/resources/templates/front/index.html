@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>FindLover</title>
+    <!--公共css与js文件-->
+    <th:block th:include="front/common/common_resource::resources"/>
+
+     <link href="../../static/css/jquery.toolbar.css" th:href="@{/css/jquery.toolbar.css}" rel="stylesheet"/>
+    <link href="../../static/css/documentation.css" th:href="@{/css/documentation.css}" rel="stylesheet"/>
+    <script src="../../static/jquery/jquery.toolbar.js" th:src="@{/jquery/jquery.toolbar.js}"></script>
+    <!--光荣脱单榜动画-->
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}"/>
+    <script src="../../static/js/modernizr-2.6.2.min.js" th:src="@{/js/modernizr-2.6.2.min.js}"></script>
+    <script src="../../static/jquery/jquery.waypoints.min.js" th:src="@{/jquery/jquery.waypoints.min.js}"></script>
+    <script src="../../static/jquery/jquery.gridrotator.js" th:src="@{/jquery/jquery.gridrotator.js}"></script>
+    <!--index.js-->
+    <script src="../../static/js/front/index.js" th:src="@{/js/front/index.js}"></script>
+</head>
+<body>
+<!-- 导航栏 -->
+<th:block th:include="front/common/header::nav"/>
+<!--导航栏（th:remove)-->
+
+<div class="banner">
+    <div class="container">
+        <div class="banner_info">
+            <h3 style="font-family: '华文行楷', sans-serif">春暖花开，不要错过你的爱！</h3>
+            <a th:href="@{/search}" class="hvr-shutter-out-horizontal">Find your Lover</a>
+        </div>
+    </div>
+</div>
+<div class="container grid_0">
+    <div class="col-md-8" style="padding: 0">
+        <div class="index-left">
+            <div class="grid_1">
+                <h1>每日情缘</h1>
+                <div class="heart-divider">
+                    <span class="grey-line"></span>
+                    <i class="fa fa-heart pink-heart"></i>
+                    <i class="fa fa-heart grey-heart"></i>
+                    <span class="grey-line"></span>
+                </div>
+            </div>
+            <!--每日情缘-->
+            <div style="margin-bottom: 30px;height: 450px;">
+                <!-- slider -->
+                <div id="dayLover" class="agile_featured-profiles">
+                    <ul id="flexiselDemo3">
+                        <li id="page1">
+                            <div th:each="user,userStat:${dayLover}" th:if="${userStat.index<8}"
+                                 class="col-md-3 biseller-column">
+                                <a th:href="@{'profile/'+${user.id}}">
+                                    <div class="profile-image">
+                                        <img th:src="@{'file?path='+${user.photo}}" style="width: 206px;height: 206px"
+                                             class="img-responsive" alt="profile image"/>
+                                        <div class="agile-overlay">
+                                            <h4>
+                                                <span th:text="${user.nickname}"></span>
+                                            </h4>
+                                            <ul>
+                                                <li><span th:text="${user.age+'岁'}">21岁</span><span
+                                                        th:text="${user.workplace}">湖南湘潭</span></li>
+                                                <li><span th:text="${user.height+'cm'}">178cm</span><span
+                                                        th:text="${user.salary+'元'}">8000元</span></li>
+                                                <li th:text="${user.userDetail.signature}"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        <li id="page2">
+                            <div th:each="user,userStat:${dayLover}"
+                                 th:if="${userStat.index>=8 && userStat.index<16}"
+                                 class="col-md-3 biseller-column">
+                                <a th:href="@{'profile/'+${user.id}}">
+                                    <div class="profile-image">
+                                        <img th:src="@{'file?path='+${user.photo}}"
+                                             class="img-responsive" style="width: 206px;height: 206px"
+                                             alt="profile image"/>
+                                        <div class="agile-overlay">
+                                            <h4>
+                                                <span th:text="${user.nickname}"></span>
+
+                                            </h4>
+                                            <ul>
+                                                <li><span th:text="${user.age+'岁'}">21岁</span><span
+                                                        th:text="${user.workplace}">湖南湘潭</span></li>
+                                                <li><span th:text="${user.height+'cm'}">178cm</span><span
+                                                        th:text="${user.salary+'元'}">5000元</span></li>
+                                                <li th:text="${user.userDetail.signature}"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div>
+                        <a href="" th:href="@{/search}">想查看更多符合你条件的用户？尝试一下搜索吧！</a>
+                    </div>
+                </div>
+            </div>
+            <!--成功故事-->
+            <div class="grid_1">
+                <a href="" th:href="@{/success_story}"><h1>成功故事</h1></a>
+                <div class="heart-divider">
+                    <span class="grey-line"></span>
+                    <i class="fa fa-heart pink-heart"></i>
+                    <i class="fa fa-heart grey-heart"></i>
+                    <span class="grey-line"></span>
+                </div>
+                <div class="suceess_story">
+                    <ul>
+                        <li th:each="success_story:${successStories}">
+                            <div class="suceess_story-date">
+                                <span th:text="${#dates.format(success_story.successTime,'yyyy-MM-dd HH:mm:ss')}" class="entry-1">Dec 20, 2015</span>
+                            </div>
+                            <div class="suceess_story-content-container">
+                                <figure class="suceess_story-content-featured-image">
+                                    <img th:src="@{/file(path=${success_story.photo})}" width="75" height="75"
+                                         class="img-responsive"/>
+                                </figure>
+                                <div class="suceess_story-content-info">
+                                    <h4><a th:href="@{'/success_story/success_story_info/'+${success_story.id}}">[[${success_story.userLeft.nickname}]]&nbsp;&amp;&nbsp;[[${success_story.userRight.nickname}]]</a>
+                                    </h4>
+                                    <p>[[${success_story.brief}]]<a th:href="@{'/success_story/success_story_info/'+${success_story.id}}">More...</a></p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //featured profiles -->
+    <div class="col-md-4" style="padding: 0">
+        <!--个人资料-->
+        <div class="index-right" style="padding-top: 0">
+            <div class="snap container-fluid">
+                <div class="snap-1">
+                    <div>
+                        <a th:href="@{'profile/'+${session.user.id}}">
+                            <img th:src="@{'file?path='+${session.user.photo}}"
+                                class="snap-photo"/></a>
+                    </div>
+                    <div>
+                        <a th:href="@{'profile/'+${session.user.id}}">
+                            <h3 th:text="${session.user.nickname}">罗伯特</h3>
+                        </a>
+
+                        <p th:text="${'ID:'+session.user.id}">ID:10000001</p>
+                        <p><span th:text="${session.user.age+'岁'}">20岁</span>&nbsp;&nbsp;&nbsp;
+                            <span th:text="${session.user.workplace}">山东</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span th:text="${session.user.height+'cm'}">177cm</span></p>
+                    </div>
+                </div>
+                <div class="row snap-2">
+                    <div class="button-group">
+                        <a th:href="@{/usercenter(type='photo')}" class="button button-rounded">上传照片</a>
+                        <a th:href="@{letter}" class="button button-rounded">查看私信</a>
+                        <a th:href="@{/usercenter}" class="button button-rounded">完善资料</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--光荣脱单榜-->
+        <div class="index-right">
+            <h1>光荣脱单榜</h1>
+            <div class="heart-divider">
+                <span class="grey-line"></span>
+                <i class="fa fa-heart pink-heart"></i>
+                <i class="fa fa-heart grey-heart"></i>
+                <span class="grey-line"></span>
+            </div>
+            <div class="container right-1">
+                <div th:each="notSingle :${vipNotSingles}"
+                     class="col-md-3 biseller-column">
+                    <a th:href="@{'profile/'+${notSingle.key.id}}">
+                        <div class="profile-image">
+                            <img th:src="@{'file?path='+${notSingle.key.photo}}" style="width: 100px;height: 85px"
+                                 class="img-responsive" alt="profile image"/>
+                            <div class="agile-overlay">
+                                <h4 style="margin-top: 3px;margin-bottom: 3px">
+                                    <span style="font-size: 13px" th:text="${notSingle.key.nickname}"></span>
+                                </h4>
+                                <ul>
+                                    <li><span th:text="${'历时'+notSingle.value+'天找到真爱'}" style="width: 100%;">21岁</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+
+        </div>
+        <!--谁看过我-->
+        <div class="index-right">
+            <a th:href="@{/visit_trace}"><h1>谁看过我</h1></a>
+            <div class="heart-divider">
+                <div>
+                    <span class="grey-line"></span>
+                    <i class="fa fa-heart pink-heart"></i>
+                    <i class="fa fa-heart grey-heart"></i>
+                    <span class="grey-line"></span>
+                </div>
+            </div>
+            <div class="record-1">
+                <ul>
+                    <li th:each="visitor:${visitTraces}">
+                        <a th:href="@{'/profile/'+${visitor.userBasic.id}}">
+                            <img th:src="@{'/file?path='+${visitor.userBasic.photo}}"
+                                 src="../../static/images/pic1.jpg"/>
+                            <span th:text="${visitor.userBasic.nickname}">奔跑的小猪</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg">
+    <div class="container">
+        <h3>Guest Messages</h3>
+        <div class="heart-divider">
+            <span class="grey-line"></span>
+            <i class="fa fa-heart pink-heart"></i>
+            <i class="fa fa-heart grey-heart"></i>
+            <span class="grey-line"></span>
+        </div>
+        <div class="col-sm-6">
+            <div class="bg_left">
+                <h4>寻爱网</h4>
+                <h5>网站简介</h5>
+                <p>寻爱网是一个婚恋交友网站，旨在帮助会员通过网站提供的资料信息找到心仪对象。
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="bg_left">
+                <h4>关于我们</h4>
+                <h5>作者</h5>
+                <p>
+                   湘潭大学软件工程罗鑫</p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--页面尾部-->
+<th:block th:include="front/common/footer::foot"/>
+</body>
+</html>	

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="back/common/common_resource :: resources"/>
+    <title>Title</title>
+    <script th:src="@{/js/chart.js}"></script>
+    <script th:src="@{/js/dashboard.js}"></script>
+    <th:block th:remove="all">
+        <link rel="stylesheet" href="/static/css/bootstrap-3.1.1.min.css">
+        <link rel="stylesheet" href="/static/css/font-awesome.css">
+    </th:block>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+<div class="wrapper">
+    <div class="content-wrapper" style="margin-left: 0;padding-top: 0">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border" style="text-align: center;margin: 20px 0">
+                            <h2 class="box-title">欢迎使用寻爱网FindLover后台管理系统</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

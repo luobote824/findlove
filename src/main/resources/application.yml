@@ -1,0 +1,54 @@
+server:
+  port: 8088
+spring:
+  thymeleaf:
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 40MB
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml
+    cache-names: user-cache,dict-cache
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/findlover?serverTimezone=UTC&useSSL=false
+      username: root
+      password: 123456.
+      initial-size: 1
+      min-idle: 1
+      max-total: 2
+      max-wait-millis: 6000
+
+fdfs:
+  soTimeout: 5000
+  connectTimeout: 8000
+  thumbImage:
+    width: 150
+    height: 150
+  http.tracker_http_port: 8080
+  trackerList: 120.79.219.25:22122
+
+mybatis:
+  type-aliases-package: com.hpe.findlover.model
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+    cache-enabled: true
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+
